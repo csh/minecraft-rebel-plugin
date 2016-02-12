@@ -6,9 +6,9 @@ minecraft-rebel-plugin
 [![Github All Releases](https://img.shields.io/github/downloads/Fireflies/minecraft-rebel-plugin/total.svg?style=flat-square)](https://github.com/Fireflies/minecraft-rebel-plugin/releases)
 [![Donate](https://img.shields.io/badge/donate-%242.50-blue.svg?style=flat-square)](https://www.paypal.me/ember/2.50USD)
 
-A [JRebel] plugin for automatically reloading Bukkit and BungeeCord plugins as their classes are recompile.
+A [JRebel] plugin for automatically reloading Bukkit and BungeeCord plugins as their classes are recompiled.
 
-This project is by no means about money, don't think that I won't support people who elect to not donate.
+_This project is by no means about money, don't think that I won't support people who elect to not donate._
 
 ### License
 
@@ -59,7 +59,7 @@ the reloaded class.
 ## Recommendation
 
 As far as I'm aware it is not possible to reload shaded dependencies using JRebel, for this reason I advise you to
-use Gradle's `distribution` plugin or the Maven's dependency plugin ('`org.apache.maven.plugins:maven-dependency-plugin`)
+use Gradle's `distribution` plugin or Maven's dependency plugin ('`org.apache.maven.plugins:maven-dependency-plugin`)
 plugin to copy dependency JARs into the classpath prior to launching the server with JRebel. Once you finish writing
 your code you can enable dependency shading once more for a pain-free experience.
 
