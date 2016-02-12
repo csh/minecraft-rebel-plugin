@@ -48,6 +48,7 @@ you will remember and update your startup arguments.
 ```
 
 If done correctly you should see the following message appear in stdout, though obviously the timestamp will be different.
+
 ```
 2016-02-12 13:21:02 JRebel: Plugins will be reloaded when class changes are detected.
 ```
@@ -59,7 +60,7 @@ the reloaded class.
 ## Recommendation
 
 As far as I'm aware it is not possible to reload shaded dependencies using JRebel, for this reason I advise you to
-use Gradle's `distribution` plugin or Maven's dependency plugin ('`org.apache.maven.plugins:maven-dependency-plugin`)
+use Gradle's `distribution` plugin or Maven's dependency plugin (`org.apache.maven.plugins:maven-dependency-plugin`)
 plugin to copy dependency JARs into the classpath prior to launching the server with JRebel. Once you finish writing
 your code you can enable dependency shading once more for a pain-free experience.
 
