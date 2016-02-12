@@ -5,8 +5,8 @@ deploy:
   api_key:
     secure: dDBtcefk3MfpIMNFOhnV+NS/YM1cWaHwavsXL2jhiKZHA2ix/oX6axqBTXH8Cwefpkt+JOPIPwNWH/+v9MyMgBVQ5LU783qJQBcS9cBWjep+IzOFWqqAr/Jq5ZkOzlfWvgMSsd31KdQ8MxQFJ8RT3rIoVZYeipFMJo7gQNELZ6KVfqAMlwg8BIUN4wYh94D4s318vYnOY/Gaf9WerD6mlCkekKEhZtESJ1MzP9qQMuXr+RdXqykyaEbvAJpQBX8Xg9URQBGRjBmJKGYWBEy1teZdoWyh9LOrR+v7GWtATHmdYDCuv8DiJdje7kq7J01TfAfpE30izAs/0hylHL7OyHWWkrO1RBsS08QUUjkD/7hKBVI9IekVyq4NaJ+MowdF+pOkY9tZsUVlEwIfVik/XqMWtfhgfmUaH3ng7CkVQm6/72lCipYlED9dsyak3v67MR/nKD97CSPfTYh1erjUzqlLuFP2/yZ6wS+YSjRu+X9P5WukFfVJ3kMfaR/+gY4DSKyHxeo9SMWMyct3jFjs7wQrP2odmptKQbxQArccXjsGm0xjOsNyLjn+Cl6WrRbQ+3yFrkwWdCPJ/AcM4dYkkLyZ6uQIiEwzksek4fJQ/RcFW2hfgavxR9thRXLnhMlsrY0tsEPsteX6Ujp+vCH7pfbvseQWFjc43PlGsD6BoNw=
   file:
-  - bukkit-rebel-plugin/build/libs/*.jar
-  - bungee-rebel-plugin/build/libs/*.jar
+  - bukkit-rebel-plugin/build/libs/bukkit-rebel-plugin.jar
+  - bungee-rebel-plugin/build/libs/bungee-rebel-plugin.jar
   skip_cleanup: true
   on:
     tags: true

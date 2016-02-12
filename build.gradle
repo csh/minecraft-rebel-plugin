@@ -14,6 +14,10 @@ allprojects {
             url 'https://repos.zeroturnaround.com/nexus/content/repositories/zt-public/'
         }
     }
+
+    jar {
+        archiveName = "${project.name}.jar"
+    }
 }
 
 subprojects {
