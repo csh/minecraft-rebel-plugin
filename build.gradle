@@ -1,0 +1,24 @@
+allprojects {
+    group 'ninja.smirking'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'maven'
+    apply plugin: 'idea'
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://repos.zeroturnaround.com/nexus/content/repositories/zt-public/'
+        }
+    }
+}
+
+subprojects {
+    dependencies {
+        compile group: 'org.zeroturnaround', name: 'jr-sdk', version: '6.3.3'
+        testCompile group: 'org.testng', name: 'testng', version: '6.9.10'
+    }
+}

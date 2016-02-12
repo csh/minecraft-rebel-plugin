@@ -1,0 +1,17 @@
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+jar {
+    manifest.attributes(
+            'JavaRebel-Plugin': 'ninja.smirking.rebel.BungeePlugin'
+    )
+}
+
+dependencies {
+    compile group: 'net.md-5', name: 'bungeecord-api', version: '1.8-SNAPSHOT'
+    compile group: 'org.zeroturnaround', name: 'jr-utils', version: '6.3.3'
+    compile group: 'org.zeroturnaround', name: 'jr-javassist', version: '3.17.0-GA'
+}
