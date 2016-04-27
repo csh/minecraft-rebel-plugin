@@ -1,5 +1,3 @@
 rootProject.name = 'minecraft-rebel-plugin'
 include 'bukkit-rebel-plugin'
 include 'bungee-rebel-plugin'
-include 'dummy'
-

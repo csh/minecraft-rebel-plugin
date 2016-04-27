@@ -16,7 +16,10 @@
 
 package ninja.smirking.rebel;
 
+import ninja.smirking.rebel.transformer.LoadedPluginCBP;
 import org.zeroturnaround.javarebel.ClassResourceSource;
+import org.zeroturnaround.javarebel.Integration;
+import org.zeroturnaround.javarebel.IntegrationFactory;
 import org.zeroturnaround.javarebel.LoggerFactory;
 import org.zeroturnaround.javarebel.Plugin;
 import org.zeroturnaround.javarebel.ReloaderFactory;
@@ -32,8 +35,10 @@ public class BungeePlugin implements Plugin {
 
     @Override
     public void preinit() {
+        Integration integration = IntegrationFactory.getInstance();
+        integration.addIntegrationProcessor(new LoadedPluginCBP(), false);
         ReloaderFactory.getInstance().addClassReloadListener(BungeeReloader.INSTANCE);
-        LoggerFactory.getInstance().echo("Plugins will be reloaded when class changes are detected.");
+        LoggerFactory.getInstance().infoEcho("Plugins will be reloaded when class changes are detected.");
     }
 
     @Override
@@ -42,7 +47,7 @@ public class BungeePlugin implements Plugin {
             initialCheck = true;
             isBungeeLoaded = crs.getClassResource("net.md_5.bungee.api.ProxyServer") != null;
             if (!isBungeeLoaded) {
-                LoggerFactory.getInstance().echo("Could not find ProxyServer in your classpath!");
+                LoggerFactory.getInstance().warnEcho("Could not find ProxyServer in your classpath!");
             }
         }
         return isBungeeLoaded;
