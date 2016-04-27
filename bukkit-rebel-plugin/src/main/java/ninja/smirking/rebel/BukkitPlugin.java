@@ -33,7 +33,7 @@ public final class BukkitPlugin implements Plugin {
     @Override
     public void preinit() {
         ReloaderFactory.getInstance().addClassReloadListener(BukkitReloader.INSTANCE);
-        LoggerFactory.getInstance().echo("Plugins will be reloaded when class changes are detected.");
+        LoggerFactory.getInstance().infoEcho("Plugins will be reloaded when class changes are detected.");
     }
 
     @Override

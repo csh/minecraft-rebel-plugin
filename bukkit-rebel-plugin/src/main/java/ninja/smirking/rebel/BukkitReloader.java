@@ -16,28 +16,49 @@
 
 package ninja.smirking.rebel;
 
+import com.google.common.collect.MapMaker;
+import com.google.common.collect.Sets;
+
+import java.util.Set;
 import java.util.logging.Level;
 
+import ninja.smirking.rebel.bukkit.DummyPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.zeroturnaround.javarebel.ClassEventListener;
+import org.zeroturnaround.javarebel.Notifier;
+import org.zeroturnaround.javarebel.NotifierFactory;
 
 /**
  * Attempts to disable and re-enable a {@link Plugin} when one of it's classes are reloaded.
  *
  * @author Connor Spencer Harries
  */
-public enum BukkitReloader implements ClassEventListener {
+enum BukkitReloader implements ClassEventListener {
     INSTANCE;
+
+    private final Set<Plugin> reloading = Sets.newSetFromMap(new MapMaker().weakKeys().makeMap());
 
     @Override
     public void onClassEvent(int eventType, Class<?> klass) {
+        if (ClassLoader.getSystemClassLoader() == klass.getClassLoader()) {
+            return;
+        }
+
         try {
             Plugin plugin = JavaPlugin.getProvidingPlugin(klass);
-            plugin.getLogger().log(Level.INFO, "Plugin is being reloaded by bukkit-rebel-plugin");
-            Bukkit.getPluginManager().disablePlugin(plugin);
-            Bukkit.getPluginManager().enablePlugin(plugin);
+            if (reloading.add(plugin)) {
+                Bukkit.getScheduler().runTaskLater(DummyPlugin.INSTANCE, () -> {
+                    if (reloading.remove(plugin)) {
+                        DummyPlugin.INSTANCE.getLogger().log(Level.INFO, "[MinecraftRebel] Reloading \"{0}\"", plugin.getName());
+                        Bukkit.getPluginManager().disablePlugin(plugin);
+                        Bukkit.getPluginManager().enablePlugin(plugin);
+
+                        NotifierFactory.getInstance().notify("Minecraft Rebel", String.format("%s was reloaded!", plugin.getName()), Notifier.IDENotificationLevel.INFO, Notifier.IDENotificationType.RELOAD);
+                    }
+                }, 60L);
+            }
         } catch (IllegalArgumentException | IllegalStateException ex) {
             // ignore
         }
