@@ -1,9 +1,9 @@
 minecraft-rebel-plugin
 ======================
 
-[![Travis](https://img.shields.io/travis/Fireflies/minecraft-rebel-plugin.svg?style=flat-square)](https://travis-ci.org/Fireflies/minecraft-rebel-plugin)
-[![GitHub tag](https://img.shields.io/github/release/Fireflies/minecraft-rebel-plugin.svg?style=flat-square)](https://github.com/Fireflies/minecraft-rebel-plugin/releases)
-[![Github All Releases](https://img.shields.io/github/downloads/Fireflies/minecraft-rebel-plugin/total.svg?style=flat-square)](https://github.com/Fireflies/minecraft-rebel-plugin/releases)
+[![Travis](https://img.shields.io/travis/csh/minecraft-rebel-plugin.svg?style=flat-square)](https://travis-ci.org/csh/minecraft-rebel-plugin)
+[![GitHub tag](https://img.shields.io/github/release/csh/minecraft-rebel-plugin.svg?style=flat-square)](https://github.com/csh/minecraft-rebel-plugin/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/csh/minecraft-rebel-plugin/total.svg?style=flat-square)](https://github.com/csh/minecraft-rebel-plugin/releases)
 [![Donate](https://img.shields.io/badge/donate-%242.50-blue.svg?style=flat-square)](https://www.paypal.me/ember/2.50USD)
 
 A [JRebel] plugin for automatically reloading Bukkit and BungeeCord plugins as their classes are recompiled.
