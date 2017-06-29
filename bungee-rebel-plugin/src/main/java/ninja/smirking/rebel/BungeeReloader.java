@@ -27,6 +27,7 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import ninja.smirking.rebel.bungee.DummyPlugin;
 import org.zeroturnaround.javarebel.ClassEventListener;
+import org.zeroturnaround.javarebel.LoggerFactory;
 import org.zeroturnaround.javarebel.Notifier;
 import org.zeroturnaround.javarebel.NotifierFactory;
 
@@ -37,6 +38,21 @@ import org.zeroturnaround.javarebel.NotifierFactory;
  */
 enum BungeeReloader implements ClassEventListener {
     INSTANCE;
+
+    private static final boolean useNotifierFactory;
+
+    static {
+        boolean notifierEnabled = Boolean.parseBoolean(System.getProperty("minecraft.notify-ide", "true"));
+        if (notifierEnabled) {
+            try {
+                Class.forName("org.zeroturnaround.javarebel.NotifierFactory");
+                LoggerFactory.getInstance().infoEcho("IDE notifications have been enabled!");
+            } catch (ClassNotFoundException ex) {
+                notifierEnabled = false;
+            }
+        }
+        useNotifierFactory = notifierEnabled;
+    }
 
     private final Set<Plugin> reloading = Sets.newSetFromMap(new MapMaker().weakKeys().makeMap());
 
@@ -54,7 +70,9 @@ enum BungeeReloader implements ClassEventListener {
                             disable(plugin);
                             enable(plugin);
 
-                            NotifierFactory.getInstance().notify("Minecraft Rebel", String.format("%s was reloaded", plugin.getDescription().getName()), Notifier.IDENotificationLevel.INFO, Notifier.IDENotificationType.RELOAD);
+                            if (useNotifierFactory) {
+                                NotifierFactory.getInstance().notify("Minecraft Rebel", String.format("%s was reloaded", plugin.getDescription().getName()), Notifier.IDENotificationLevel.INFO, Notifier.IDENotificationType.RELOAD);
+                            }
                         }
                     }, 3L, TimeUnit.SECONDS);
                 }

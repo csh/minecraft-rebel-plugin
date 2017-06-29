@@ -27,6 +27,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.zeroturnaround.javarebel.ClassEventListener;
+import org.zeroturnaround.javarebel.LoggerFactory;
 import org.zeroturnaround.javarebel.Notifier;
 import org.zeroturnaround.javarebel.NotifierFactory;
 
@@ -37,6 +38,21 @@ import org.zeroturnaround.javarebel.NotifierFactory;
  */
 enum BukkitReloader implements ClassEventListener {
     INSTANCE;
+
+    private static final boolean useNotifierFactory;
+
+    static {
+        boolean notifierEnabled = Boolean.parseBoolean(System.getProperty("minecraft.notify-ide", "true"));
+        if (notifierEnabled) {
+            try {
+                Class.forName("org.zeroturnaround.javarebel.NotifierFactory");
+                LoggerFactory.getInstance().infoEcho("IDE notifications have been enabled!");
+            } catch (ClassNotFoundException ex) {
+                notifierEnabled = false;
+            }
+        }
+        useNotifierFactory = notifierEnabled;
+    }
 
     private final Set<Plugin> reloading = Sets.newSetFromMap(new MapMaker().weakKeys().makeMap());
 
@@ -55,7 +71,9 @@ enum BukkitReloader implements ClassEventListener {
                         Bukkit.getPluginManager().disablePlugin(plugin);
                         Bukkit.getPluginManager().enablePlugin(plugin);
 
-                        NotifierFactory.getInstance().notify("Minecraft Rebel", String.format("%s was reloaded!", plugin.getName()), Notifier.IDENotificationLevel.INFO, Notifier.IDENotificationType.RELOAD);
+                        if (useNotifierFactory) {
+                            NotifierFactory.getInstance().notify("Minecraft Rebel", String.format("%s was reloaded!", plugin.getName()), Notifier.IDENotificationLevel.INFO, Notifier.IDENotificationType.RELOAD);
+                        }
                     }
                 }, 60L);
             }
